@@ -1,16 +1,19 @@
 const SELECTION = ['Rock', 'Paper', 'Scissors'];
 
+// select random item from SELECTION
 function computerPlay() {
-  return SELECTION[Math.floor(Math.random() * 3)];
+  return SELECTION[Math.floor(Math.random() * SELECTION.length)];
 }
 
 const computerSelection = computerPlay();
-let playerSelection = prompt('Rock, paper or scissors?');
 
-// playerSelection = playerSelection[0].toUpperCase + playerSelection.substring(1);
+const input = prompt('Rock, paper or scissors?');
+// parse input into a lower case word with a capitalized first character
+const playerSelection = `${input[0].toUpperCase()}${input
+  .substring(1)
+  .toLocaleLowerCase()}`;
 
 function playRound(playerSelection, computerSelection) {
-
   if (playerSelection === SELECTION[0]) {
     switch (computerSelection) {
       case SELECTION[0]:
