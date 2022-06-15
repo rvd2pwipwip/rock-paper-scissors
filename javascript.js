@@ -1,19 +1,12 @@
 const SELECTION = ['Rock', 'Paper', 'Scissors'];
+const ROUNDS = 5;
 
 // select random item from SELECTION
 function computerPlay() {
   return SELECTION[Math.floor(Math.random() * SELECTION.length)];
 }
 
-const computerSelection = computerPlay();
-
-const input = prompt('Rock, paper or scissors?');
-// parse input into a lower case word with a capitalized first character
-const playerSelection = `${input[0].toUpperCase()}${input
-  .substring(1)
-  .toLocaleLowerCase()}`;
-
-function playRound(playerSelection, computerSelection) {
+function evaluate(playerSelection, computerSelection) {
   if (playerSelection === SELECTION[0]) {
     switch (computerSelection) {
       case SELECTION[0]:
@@ -44,4 +37,18 @@ function playRound(playerSelection, computerSelection) {
   }
 }
 
-console.log(playRound(playerSelection, computerSelection));
+function game(rounds) {
+  for (let i = 0; i < rounds; i++) {
+    const computerSelection = computerPlay();
+
+    const input = prompt('Rock, paper or scissors?');
+    // parse input into a lower case word with a capitalized first character
+    const playerSelection = `${input[0].toUpperCase()}${input
+      .substring(1)
+      .toLocaleLowerCase()}`;
+
+    console.log(evaluate(playerSelection, computerSelection));
+  }
+}
+
+game(ROUNDS);
