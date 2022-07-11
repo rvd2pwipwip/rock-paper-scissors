@@ -3,6 +3,7 @@ const ROUNDS = 5; // how many rounds in a game
 
 const buttons = document.querySelectorAll('button');
 const display = document.querySelector('.results');
+const score = document.querySelector('.score');
 
 let playerScore = 0;
 let computerScore = 0;
@@ -23,31 +24,31 @@ function playRound(playerSelection, computerSelection) {
         return 'A tie';
       case SELECTION[1]:
         computerScore++;
-        return `You lose! ${computerSelection} beats ${playerSelection}`;
+        return `You lose. ${computerSelection} beats ${playerSelection}`;
       case SELECTION[2]:
         playerScore++;
-        return `You win!!! ${playerSelection} beats ${computerSelection}`;
+        return `You win! ${playerSelection} beats ${computerSelection}`;
     }
   } else if (playerSelection === SELECTION[1]) {
     switch (computerSelection) {
       case SELECTION[0]:
         playerScore++;
-        return `You win!!! ${playerSelection} beats ${computerSelection}`;
+        return `You win! ${playerSelection} beats ${computerSelection}`;
       case SELECTION[1]:
         ties++;
         return 'A tie';
       case SELECTION[2]:
         computerScore++;
-        return `You lose! ${computerSelection} beats ${playerSelection}`;
+        return `You lose. ${computerSelection} beats ${playerSelection}`;
     }
   } else {
     switch (computerSelection) {
       case SELECTION[0]:
         computerScore++;
-        return `You lose! ${computerSelection} beats ${playerSelection}`;
+        return `You lose. ${computerSelection} beats ${playerSelection}`;
       case SELECTION[1]:
         playerScore++;
-        return `You win!!! ${playerSelection} beats ${computerSelection}`;
+        return `You win! ${playerSelection} beats ${computerSelection}`;
       case SELECTION[2]:
         ties++;
         return 'A tie';
@@ -57,12 +58,11 @@ function playRound(playerSelection, computerSelection) {
 
 buttons.forEach((btn) => {
   btn.addEventListener('click', (e) => {
-    const roundResult = document.createElement('p');
-    roundResult.textContent = playRound(e.target.innerHTML, computerPlay());
-    display.appendChild(roundResult);
     roundsPlayed++;
-    // disable game buttons after multiple of 5 rounds
-    if (roundsPlayed % ROUNDS === 0) {
+    display.textContent = playRound(e.target.innerHTML, computerPlay());
+    score.textContent = `You: ${playerScore}, Computer: ${computerScore}`;
+    // disable game buttons once a player scores 5 points
+    if (playerScore === 5 || computerScore === 5) {
       buttons.forEach((btn) => {
         btn.disabled = true;
       });
@@ -102,6 +102,7 @@ function scoreGame() {
 }
 
 function gameReset() {
+  score.textContent = '';
   display.innerHTML = '';
   playerScore = 0;
   computerScore = 0;
