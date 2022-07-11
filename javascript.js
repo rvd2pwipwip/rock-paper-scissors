@@ -103,7 +103,7 @@ function scoreGame() {
 
 function gameReset() {
   score.textContent = '';
-  display.innerHTML = '';
+  display.textContent = '';
   playerScore = 0;
   computerScore = 0;
   ties = 0;
